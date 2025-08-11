@@ -27,7 +27,7 @@ class JWTAuth:
         else:
             expire = datetime.utcnow() + timedelta(hours=1)
         payload.update({"exp": expire})
-        access_token = jwt.encode(payload, self.secret_key, algorithm=self.algorithm)
+        access_token: str = jwt.encode(payload, self.secret_key, algorithm=self.algorithm)
         return access_token
 
     def create_refresh_token(
@@ -40,7 +40,9 @@ class JWTAuth:
         else:
             expire = datetime.utcnow() + timedelta(days=4)
         payload.update({"exp": expire})
-        refresh_token = jwt.encode(payload, self.secret_key, algorithm=self.algorithm)
+        refresh_token: str = jwt.encode(
+            payload, self.secret_key, algorithm=self.algorithm
+        )
         return refresh_token
 
     def decode_token(self, token: str) -> Dict[str, Any]:
