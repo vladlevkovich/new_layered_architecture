@@ -27,7 +27,9 @@ class JWTAuth:
         else:
             expire = datetime.utcnow() + timedelta(hours=1)
         payload.update({"exp": expire})
-        access_token: str = jwt.encode(payload, self.secret_key, algorithm=self.algorithm)
+        access_token: str = jwt.encode(
+            payload, self.secret_key, algorithm=self.algorithm
+        )
         return access_token
 
     def create_refresh_token(
